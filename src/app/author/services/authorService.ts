@@ -5,6 +5,7 @@ import { AuthorPage } from "src/app/core/model/AuthorPage";
 import { AUTHOR_DATA } from "../model/AUTHOR_DATA";
 import { Author } from "../model/Author";
 import { HttpClient } from '@angular/common/http';
+import { AUTHOR_DATA_LIST } from "../model/mock-author-list";
 
 
 
@@ -34,5 +35,9 @@ export class AuthorService {
 
     deleteAuthor(idAuthor: number): Observable<void>{
         return this.HttpClient.delete<void>('http://192.168.18.64:8081/author/'+ idAuthor)
+    }
+
+    getAllAuthors(): Observable<Author[]> {
+        return this.HttpClient.get<Author[]>("http://192.168.18.64:8081/author")
     }
 }

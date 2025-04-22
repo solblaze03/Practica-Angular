@@ -9,6 +9,7 @@ import { HeaderComponent } from './core/header/header.component';
 import { CategoryModule } from './category/category.module';
 import { CategoryListComponent } from './category/category-list/category-list.component';
 import { AuthorModule } from './author/author.module';
+import { GameModule } from './game/game.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AuthorModule } from './author/author.module';
     BrowserAnimationsModule,
     CoreModule,
     CategoryModule,
-    AuthorModule
+    AuthorModule,
+    GameModule
   ],
   providers: [],
   bootstrap: [AppComponent]
