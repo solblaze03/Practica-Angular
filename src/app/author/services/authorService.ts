@@ -6,6 +6,7 @@ import { AUTHOR_DATA } from "../model/AUTHOR_DATA";
 import { Author } from "../model/Author";
 import { HttpClient } from '@angular/common/http';
 import { AUTHOR_DATA_LIST } from "../model/mock-author-list";
+import { environment } from "src/environments/environment";
 
 
 
@@ -19,13 +20,15 @@ export class AuthorService {
         private HttpClient : HttpClient
     ) {}
 
+    private readonly URL = environment.api;
+
     getAuthors(pageable: Pageable): Observable<AuthorPage> {
-        console.log(pageable)
-        return this.HttpClient.post<AuthorPage>("http://192.168.18.64:8081/author", {pageable: pageable})
+        
+        return this.HttpClient.post<AuthorPage>(`${this.URL}/author`, {pageable: pageable});
     }
 
     saveAuthor(author: Author) : Observable<void> {
-        let url = "http://192.168.18.64:8081/author";
+        let url = `${this.URL}/author`;
         if(author.id != null){
             url += "/"+author.id
         }
@@ -34,10 +37,10 @@ export class AuthorService {
     }
 
     deleteAuthor(idAuthor: number): Observable<void>{
-        return this.HttpClient.delete<void>('http://192.168.18.64:8081/author/'+ idAuthor)
+        return this.HttpClient.delete<void>(`${this.URL}/author`+ idAuthor)
     }
 
     getAllAuthors(): Observable<Author[]> {
-        return this.HttpClient.get<Author[]>("http://192.168.18.64:8081/author")
+        return this.HttpClient.get<Author[]>(`${this.URL}/author`)
     }
 }

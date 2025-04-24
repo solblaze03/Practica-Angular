@@ -1,0 +1,30 @@
+.container {
+    margin: 20px;
+  
+    mat-table {
+      margin-top: 10px;
+      margin-bottom: 20px;
+  
+
+      #header{
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #838383;
+        background-color: #ebebeb;
+      }
+  
+      .mat-column-id {
+        flex: 0 0 20%;
+        justify-content: center;
+      }
+  
+      .mat-column-action {
+        flex: 0 0 10%;
+        justify-content: center;
+      }
+    }
+  
+    .buttons {
+      text-align: right;
+    }
+  }

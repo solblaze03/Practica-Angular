@@ -4,6 +4,6 @@ import { Pageable } from './Pageable';
 
 export class AuthorPage {
     content: Author[];
-    Pageable: Pageable;
+    pageable: Pageable;
     totalElements: number;
 }

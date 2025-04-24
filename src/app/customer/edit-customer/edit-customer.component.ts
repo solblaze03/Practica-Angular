@@ -1,0 +1,48 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import { CustomerService } from '../customer.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Customer } from '../model/Customer';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-edit-customer',
+  templateUrl: './edit-customer.component.html',
+  styleUrls: ['./edit-customer.component.scss'],
+})
+export class EditCustomerComponent implements OnInit {
+  constructor(
+    private customerService: CustomerService,
+    public dialogRef: MatDialogRef<EditCustomerComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+
+  customer: Customer;
+
+  codeError = ''
+
+  ngOnInit(): void {
+    if (this.data.client != null) {
+      this.customer = Object.assign({}, this.data.client);
+    } else {
+      this.customer = new Customer();
+    }
+  }
+
+  onClose() {
+    this.dialogRef.close();
+  }
+
+  onSave() {
+    this.customerService.saveCustomer(this.customer).subscribe({
+      next: () => {
+        this.dialogRef.close();
+      },
+      error: (err) => {
+        if(err.status === 400){
+          this.codeError = "Ya existe un cliente con ese nombre"
+        }
+      },
+    });
+    
+  }
+}

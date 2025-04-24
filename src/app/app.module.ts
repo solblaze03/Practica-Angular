@@ -10,6 +10,7 @@ import { CategoryModule } from './category/category.module';
 import { CategoryListComponent } from './category/category-list/category-list.component';
 import { AuthorModule } from './author/author.module';
 import { GameModule } from './game/game.module';
+import { CustomerModule } from './customer/customer.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { GameModule } from './game/game.module';
     CoreModule,
     CategoryModule,
     AuthorModule,
-    GameModule
+    GameModule,
+    CustomerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

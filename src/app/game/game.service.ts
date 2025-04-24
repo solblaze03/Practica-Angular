@@ -3,11 +3,15 @@ import { Observable, of } from 'rxjs';
 import { Game } from './models/game';
 import { GAME_DATA } from './models/mock-games';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
+
+
+  private readonly URL = environment.api;
 
   constructor(private http :HttpClient) { }
 
@@ -16,7 +20,7 @@ export class GameService {
   }
 
   saveGame(game: Game) : Observable<void> {
-    let url = "http://192.168.18.64:8081/game";
+    let url = `${this.URL}/game`;
 
     if(game.id != null){
       url += '/'+ game.id
@@ -37,7 +41,7 @@ export class GameService {
       params += "idCategory="+categoryId
     }
 
-    let url = "http://192.168.18.64:8081/game"
+    let url = `${this.URL}/game`
     if(params == ''){
       return url
     }else{

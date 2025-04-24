@@ -10,7 +10,7 @@ export const AUTHOR_DATA: AuthorPage = {
         { id: 6, name: 'J. Alex Kavern', nationality: 'Estados Unidos' },
         { id: 7, name: 'Corey Young', nationality: 'Estados Unidos' },
     ],
-    Pageable: {
+    pageable: {
         pageSize: 5,
         pageNumber: 0,
         sort: [

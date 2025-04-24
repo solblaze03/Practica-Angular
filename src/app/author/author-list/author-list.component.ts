@@ -20,7 +20,7 @@ export class AuthorListComponent implements OnInit {
   totalElements: number = 0;
 
   dataSource = new MatTableDataSource<Author>();
-  displayedColumns: string[] = ['id', 'nationality', 'action'];
+  displayedColumns: string[] = ['id','name' ,'nationality', 'action'];
 
   constructor(private authorService: AuthorService, public dialog: MatDialog) {}
   ngOnInit(): void {
@@ -42,12 +42,13 @@ export class AuthorListComponent implements OnInit {
     if (event != null) {
       pageable.pageSize = event.pageSize;
       pageable.pageNumber = event.pageIndex;
+      
     }
 
-    this.authorService.getAuthors(pageable).subscribe((data) => {
+    this.authorService.getAuthors(pageable).subscribe(data => {
       this.dataSource.data = data.content;
-      this.pageNumber = data.Pageable.pageNumber;
-      this.pageSize = data.Pageable.pageSize;
+      this.pageNumber = data.pageable.pageNumber;
+      this.pageSize = data.pageable.pageSize;
       this.totalElements = data.totalElements;
     });
   }

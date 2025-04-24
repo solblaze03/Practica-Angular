@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Category } from '../model/Category';
 import { Category_DATA } from '../model/mock-categories';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,14 @@ export class CategoryService {
 
   constructor(private httpClient: HttpClient) { }
 
+  private readonly URL = environment.api;
+
   getCategories(): Observable<Category[]>{
-    return this.httpClient.get<Category[]>("http://192.168.18.64:8081/category");
+    return this.httpClient.get<Category[]>(`${this.URL}/category`);
   }
 
   saveCategories(category: Category): Observable<any> {
-    let url = "http://192.168.18.64:8081/category";
+    let url = `${this.URL}/category`;
     if(category.id != null){
       url += '/'+category.id
     }
@@ -24,7 +27,7 @@ export class CategoryService {
   }
 
   deleteCategory(idCategory: number){
-    let url = "http://192.168.18.64:8081/category/";
+    let url = `${this.URL}/category/`;
     return this.httpClient.delete<Category>(url+idCategory)
   }
 

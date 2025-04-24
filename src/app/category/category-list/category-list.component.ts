@@ -49,7 +49,7 @@ export class CategoryListComponent implements OnInit{
 
   deleteCategory(category: Category){
     const dialogRef = this.dialog.open(DialogConfirmationComponent , {
-      data: { title: 'Eliminar Categoria' , description: 'Atención si borra la categoria perdera sus datos.<br> ¿Desea eliminar la cuenta?' }
+      data: { title: 'Eliminar Categoría' , description: 'Atención si borra la categoría perderá sus datos.<br> ¿Desea eliminar la cuenta?' }
     });
 
     dialogRef.afterClosed().subscribe(
