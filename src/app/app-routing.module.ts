@@ -4,6 +4,7 @@ import { CategoryListComponent } from './category/category-list/category-list.co
 import { AuthorListComponent } from './author/author-list/author-list.component';
 import { GameListComponent } from './game/game-list/game-list.component';
 import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { LoansListComponent } from './loans/loans-list/loans-list.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,9 @@ const routes: Routes = [
   },
   {
     path: 'customers', component: CustomerListComponent
+  },
+  {
+    path: 'loan', component: LoansListComponent
   }
 ];
 

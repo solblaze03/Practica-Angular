@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/category/model/Category';
-import { Game } from '../models/game';
+
 import { GameService } from '../game.service';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { MatDialog } from '@angular/material/dialog';
 import { GameEditComponent } from '../game-edit/game-edit.component';
+import { Game } from '../models/Game';
 
 @Component({
   selector: 'app-game-list',
@@ -50,9 +51,13 @@ export class GameListComponent implements OnInit{
     let title = this.filterTitle;
     let categoryId = this.filterCategory != null ? this.filterCategory.id : null
 
+    
+
     this.gameService.getGames(title, categoryId).subscribe(
       games => this.games = games
     )
+
+
   }
 
   createGame(){

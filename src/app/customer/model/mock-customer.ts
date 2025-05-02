@@ -1,7 +1,7 @@
 import { Category } from "src/app/category/model/Category";
 import { Customer } from "./Customer";
 
-export const CLIENT_DATA: Customer[] = [
+export const Customer_DATA: Customer[] = [
     {
         id: 0,
         name: "Nala"

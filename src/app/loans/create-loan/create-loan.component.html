@@ -1,0 +1,45 @@
+<div class="container">
+    <h1>Nuevo Préstamo</h1>
+
+    <form>
+
+        <mat-form-field>
+            <input type="text" matInput placeholder="Identificador" name="id" disabled>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Titulo juego</mat-label>
+            <mat-select disableRipple [(ngModel)]="loan.game" (valueChange)="onChange()" name="game" required>
+                <mat-option *ngFor="let game of games" [value]="game">{{game.title}}</mat-option>
+                
+            </mat-select>
+        </mat-form-field>  
+
+        <mat-form-field>
+            <mat-label>Cliente</mat-label>
+            <mat-select disableRipple [(ngModel)]="loan.customer" (valueChange)="onChange()" name="customer" required>
+                <mat-option *ngFor="let customer of customers" [value]="customer">{{customer.name}}</mat-option>
+                
+            </mat-select>
+        </mat-form-field>  
+
+        <mat-form-field>
+            <input matInput [min]="today" [matDatepicker]="picker1" [(formControl)]="selectedLoanDate" formControlName="LoanDate" (dateChange)="changeEvent('change', $event)" placeholder="Fecha préstamo" required >
+            <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" #picker1> </mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput [min]="minDate" [max]="max" [matDatepicker]="picker2" [(formControl)]="selectedReturnDate" formControlName="returnDate" (dateChange)="changeEventReturn('change', $event)" placeholder="Fecha devolución" required>
+            <mat-datepicker-toggle matSuffix [for]="picker2" ></mat-datepicker-toggle>
+            <mat-datepicker touchUi="true" #picker2> </mat-datepicker>
+        </mat-form-field>
+        <p class="error">{{messageError}}</p>
+        <div class="buttons">
+            <button mat-flat-button color="primary" (click)="cancel()">Cancelar</button>
+            <button mat-flat-button color="primary" (click)="save()">Guardar</button>
+        </div>
+    </form>
+
+    
+</div>

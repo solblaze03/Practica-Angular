@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Game } from './models/game';
 import { GAME_DATA } from './models/mock-games';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
+import { Game } from './models/Game';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +19,14 @@ export class GameService {
     return this.http.get<Game[]>(this.composeFindUrl(title, categoryId))
   }
 
+  
   saveGame(game: Game) : Observable<void> {
     let url = `${this.URL}/game`;
 
     if(game.id != null){
+  
       url += '/'+ game.id
+  
     }
     return this.http.put<void>(url, game)
   }

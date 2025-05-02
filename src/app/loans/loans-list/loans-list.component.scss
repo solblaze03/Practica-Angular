@@ -1,0 +1,46 @@
+.container{
+    padding: 20px;
+    
+
+    .buttons{
+        text-align: right;
+        padding: 20px;
+        
+    }
+
+    button{
+        margin-right: 20px;
+        
+        text-align: right;
+    }
+
+    .filter form{
+        display: flex;
+        flex-direction: row;
+       
+    }
+    .filter{
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    
+    mat-form-field{
+        
+        margin-right: 30px;
+    }
+    #header{
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #838383;
+        background-color: #ebebeb;
+      }
+
+    
+
+    
+
+
+}

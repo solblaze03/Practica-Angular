@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Game } from '../models/game';
+import { Game } from '../models/Game';
 import { Author } from 'src/app/author/model/Author';
 import { Category } from 'src/app/category/model/Category';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';

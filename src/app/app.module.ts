@@ -11,6 +11,7 @@ import { CategoryListComponent } from './category/category-list/category-list.co
 import { AuthorModule } from './author/author.module';
 import { GameModule } from './game/game.module';
 import { CustomerModule } from './customer/customer.module';
+import { LoansModule } from './loans/loans.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CustomerModule } from './customer/customer.module';
     CategoryModule,
     AuthorModule,
     GameModule,
-    CustomerModule
+    CustomerModule,
+    LoansModule
   ],
   providers: [],
   bootstrap: [AppComponent]

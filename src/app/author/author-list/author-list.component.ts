@@ -74,7 +74,7 @@ export class AuthorListComponent implements OnInit {
 
   deleteAuthor(author: Author){
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-      data: {title: "Eliminar autor", description: 'Atencion si borra el autor se perderán sus datos.<br> ¿Desea eliminar el autor?'}
+      data: {title: "Eliminar autor", description: 'Atención si borra el autor se perderán sus datos.<br> ¿Desea eliminar el autor?'}
     })
 
     dialogRef.afterClosed().subscribe(result => {
