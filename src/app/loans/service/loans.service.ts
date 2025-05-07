@@ -16,7 +16,7 @@ export class LoansService {
 
   constructor(private http : HttpClient) { }
 
-  getLoans(pageable: Pageable, titleGame?: string, nameCustomer?: string, daySelected?: string) : Observable<LoanPage>{
+  getLoans(pageable: Pageable, titleGame?: number, nameCustomer?: number, daySelected?: string) : Observable<LoanPage>{
     return this.http.post<LoanPage>(this.composeFindUrl(titleGame,nameCustomer,daySelected), {pageable: pageable})
   }
 
@@ -28,19 +28,19 @@ export class LoansService {
     return this.http.delete<void>(`${this.URL}/loan/${id}`)
   }
 
-  composeFindUrl(title? : string, name?: string, daySelected?: string) : string{
+  composeFindUrl(idGame? : number, idCustomer?: number, daySelected?: string) : string{
     let params = ''
     
 
-    if(title != null){
-      params += 'title='+title;
+    if(idGame != null){
+      params += 'title='+idGame
     }
 
-    if(name != null){
+    if(idCustomer != null){
 
       if(params != '') params+= "&"
 
-      params += 'customer='+name
+      params += 'customer='+idCustomer
 
     }
 

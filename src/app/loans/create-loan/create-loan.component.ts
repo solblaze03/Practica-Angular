@@ -76,6 +76,7 @@ export class CreateLoanComponent  implements OnInit{
     this.dialogRef.close()
   }
   save(){
+    
     this.loanService.save(this.loan).subscribe({
       next: () => {
         this.dialogRef.close()

@@ -90,18 +90,18 @@ export class LoansListComponent implements OnInit {
     this.pageNumber = 0;
     this.totalElements = 0
 
-    let titleGame =null
-    let customerName = null
+    let titleGame : number =null
+    let customerName : number = null
     
     if(this.filterGame != null){
-      titleGame = this.filterGame.title
+      titleGame = this.filterGame.id
       
     }
 
     
 
     if (this.filterCustomer != null){
-      customerName = this.filterCustomer.name
+      customerName = this.filterCustomer.id
     }
     
 
