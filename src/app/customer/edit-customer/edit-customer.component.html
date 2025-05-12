@@ -1,16 +1,17 @@
 <div class="container">
     <h1>Agregar cliente</h1>
     
+    
 
-    <form>
+    <form [formGroup]="formCustomer">
         <mat-form-field>
             <mat-label>Identificador</mat-label>
-            <input type="text" matInput placeholder="Identificador" [(ngModel)]="customer.id" name="Id" disabled>
+            <input type="text" matInput placeholder="Identificador" formControlName="id" [(ngModel)]="customer.id" name="Id" readonly>
         </mat-form-field>
         
         <mat-form-field>
             <mat-label>Nombre</mat-label>
-            <input type="text" matInput name="name" [(ngModel)]="customer.name" placeholder="Nombre del cliente" required>
+            <input type="text" matInput name="name" [(ngModel)]="customer.name" formControlName="nombre" placeholder="Nombre del cliente" required>
             <mat-error></mat-error>
         </mat-form-field>
         <p class="error">{{codeError}}</p>
@@ -19,7 +20,7 @@
 
     <div class="buttons">
         <button mat-stroked-button color="primary" (click)="onClose()"><mat-icon>cancel</mat-icon>Cerrar</button>
-        <button mat-stroked-button color="primary" (click)="onSave()"><mat-icon>save</mat-icon> Guardar</button>
+        <button mat-stroked-button color="primary" (click)="onSave()" [disabled]="!formCustomer.valid"><mat-icon>save</mat-icon> Guardar</button>
         
         
     </div>

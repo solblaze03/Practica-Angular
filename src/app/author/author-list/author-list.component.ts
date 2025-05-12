@@ -8,6 +8,7 @@ import { Pageable } from '../../core/model/Pageable';
 import { AuthorEditComponent } from '../author-edit/author-edit.component';
 import { Dialog } from '@angular/cdk/dialog';
 import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/dialog-confirmation.component';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-author-list',
@@ -22,9 +23,25 @@ export class AuthorListComponent implements OnInit {
   dataSource = new MatTableDataSource<Author>();
   displayedColumns: string[] = ['id','name' ,'nationality', 'action'];
 
-  constructor(private authorService: AuthorService, public dialog: MatDialog) {}
+  constructor(private authorService: AuthorService, public dialog: MatDialog, private paginator: MatPaginatorIntl ) {}
   ngOnInit(): void {
     this.loadPage();
+    this.paginator.itemsPerPageLabel = "Autores por pagina"
+    this.paginator.previousPageLabel = "Pagina anterior"
+    this.paginator.nextPageLabel = "Siguiente pagina"
+    this.paginator.firstPageLabel = "Primera pagina"
+    this.paginator.lastPageLabel = "Ultima pagina"
+
+    this.paginator.getRangeLabel =  (page: number, pageSize: number, length: number): string => {
+
+      if(length == 0){
+        return "Pagina 1 de 1"
+      }
+
+      const amountPages = Math.ceil(length / pageSize)
+      return `Pagina ${page+ 1} de ${amountPages}`
+    }
+  
   }
 
   loadPage(event?: PageEvent) {
@@ -58,7 +75,7 @@ export class AuthorListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.ngOnInit;
+      this.ngOnInit();
     });
   }
 

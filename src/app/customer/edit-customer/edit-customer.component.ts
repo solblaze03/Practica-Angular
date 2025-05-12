@@ -3,6 +3,8 @@ import { CustomerService } from '../customer.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Customer } from '../model/Customer';
 import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { isBlank } from 'src/app/game/validators/FormValidate';
 
 @Component({
   selector: 'app-edit-customer',
@@ -13,9 +15,20 @@ export class EditCustomerComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     public dialogRef: MatDialogRef<EditCustomerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder : FormBuilder
+  ) {
 
+    this.formCustomer = formBuilder.group(
+      {
+        id: [''],
+        nombre: ['', [Validators.required,isBlank]]
+      }
+    )
+
+  }
+
+  formCustomer: FormGroup
   customer: Customer;
 
   codeError = ''

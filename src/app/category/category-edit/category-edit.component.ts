@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { CategoryService } from '../services/category.service';
 import { Category } from '../model/Category';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { isBlank } from 'src/app/game/validators/FormValidate';
 
 @Component({
   selector: 'app-category-edit',
@@ -10,12 +12,22 @@ import { Category } from '../model/Category';
 })
 export class CategoryEditComponent implements OnInit{
 
+  formCategory : FormGroup
   category : Category
 
   constructor(private categoryService : CategoryService,
     public dialogRef: MatDialogRef<CategoryEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) {}
+    private formBuilder: FormBuilder
+  ) {
+
+     this.formCategory = this.formBuilder.group({
+      id : [''],
+      category: ['category', [Validators.required, isBlank]]
+    })
+
+
+  }
   ngOnInit(): void {
 
     if(this.data.category != null){
@@ -23,6 +35,7 @@ export class CategoryEditComponent implements OnInit{
     }else{
       this.category = new Category();
     }
+
   }
 
   onSave(){
@@ -30,6 +43,12 @@ export class CategoryEditComponent implements OnInit{
       
       this.dialogRef.close();
     })
+  }
+
+  isValid() : boolean{
+
+    return this.formCategory.valid
+
   }
 
   onClose(){

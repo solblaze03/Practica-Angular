@@ -3,18 +3,19 @@ import { LOAN_DATA } from '../model/Mock-Loans';
 import { MatTableDataSource } from '@angular/material/table';
 import { Loan } from '../model/Loan';
 import { LoansService } from '../service/loans.service';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { Pageable } from '../../core/model/Pageable';
 import { Game } from 'src/app/game/models/Game';
 import { GameService } from 'src/app/game/game.service';
 import { CustomerService } from 'src/app/customer/customer.service';
 import { Customer } from 'src/app/customer/model/Customer';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { DatePipe, formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLoanComponent } from '../create-loan/create-loan.component';
 import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/dialog-confirmation.component';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-loans-list',
@@ -27,10 +28,41 @@ export class LoansListComponent implements OnInit {
     private loansService: LoansService,
     private gameService: GameService,
     private customerService: CustomerService,
-    public dialog : MatDialog
-  ) {}
+    public dialog : MatDialog,
+    private paginator : MatPaginatorIntl,
+    private formBuilder : FormBuilder
+  ) {
+
+    formBuilder.group({
+
+    })
+  }
+
 
   ngOnInit(): void {
+
+    this.paginator.itemsPerPageLabel = "Prestamos por pagina"
+    
+    this.paginator.itemsPerPageLabel = "Autores por pagina"
+    this.paginator.previousPageLabel = "Pagina anterior"
+    this.paginator.nextPageLabel = "Siguiente pagina"
+    this.paginator.firstPageLabel = "Primera pagina"
+    this.paginator.lastPageLabel = "Ultima pagina"
+
+    this.paginator.getRangeLabel =  (page: number, pageSize: number, length: number): string => {
+
+      if(length == 0){
+        return "Pagina 1 de 1"
+      }
+
+      const amountPages = Math.ceil(length / pageSize)
+      return `Pagina ${page+ 1} de ${amountPages}`
+    }
+
+  
+    
+
+
     this.LoadPage();
 
     this.gameService.getGames().subscribe((e) => {

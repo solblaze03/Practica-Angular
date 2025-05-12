@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Customer } from 'src/app/customer/model/Customer';
@@ -8,6 +8,7 @@ import { Loan } from '../model/Loan';
 import { formatDate } from '@angular/common';
 import { LoansService } from '../service/loans.service';
 import { GameService } from '../../game/game.service';
+import { isBlank } from 'src/app/game/validators/FormValidate';
 
 @Component({
   selector: 'app-create-loan',
@@ -19,8 +20,28 @@ export class CreateLoanComponent  implements OnInit{
   @Inject(MAT_DIALOG_DATA) public data: any,
   private loanService : LoansService,
   private formBuilder: FormBuilder
-){}
+){
 
+  this.formLoan = formBuilder.group({
+    id: [''],
+    titleGame: ['',[Validators.required, isBlank]],
+    customerName : ['',[Validators.required, isBlank]]
+  })
+}
+
+
+
+  formLoan: FormGroup
+
+
+
+  activateButton() : boolean{
+    console.log("-------> ",this.selectedLoanDate, this.selectedReturnDate, this.formLoan.valid)
+    if(this.loan.fechaInicio !==  undefined && this.loan.fechaDevolucion !== undefined && this.formLoan.valid){
+      return false
+    }
+    return true
+  }
 
   
   messageError = ''
@@ -59,10 +80,13 @@ export class CreateLoanComponent  implements OnInit{
   }
     
   changeEvent(type: string, event : MatDatepickerInputEvent<Date>){
+    this.loan.fechaDevolucion = undefined
     console.log(event.value)
     this.loan.fechaInicio = formatDate(event.value, 'YYYY-MM-dd', 'en-US' )
     this.minDate = event.value
+    this.minDate.setDate(this.minDate.getDate() + 1)
     this.selectedReturnDate = new FormControl();
+    
     this.messageError =''
     this.max  = new Date(event.value)
     this.max.setDate(event.value.getDate() + 14)

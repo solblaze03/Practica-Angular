@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 
+
 @NgModule({
   declarations: [
     GameListComponent,

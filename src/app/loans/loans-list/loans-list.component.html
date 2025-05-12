@@ -2,12 +2,12 @@
     <h1>Prestamos</h1>
 
     <div class="filter">
-        <form>
+        <form >
 
             <mat-form-field>
                 <mat-label >Titulo juego</mat-label>
-                <mat-select disableRipple [(ngModel)]="filterGame" name="game">
-                    <mat-option *ngFor="let game of games" [value]="game">{{game.title}}</mat-option>
+                <mat-select disableRipple [(ngModel)]="filterGame"  name="game">
+                    <mat-option *ngFor="let game of games" [value]="game" >{{game.title}}</mat-option>
                 </mat-select>
             </mat-form-field>  
 
@@ -19,7 +19,7 @@
             </mat-form-field>  
 
             <mat-form-field>
-                <input matInput  [matDatepicker]="picker" [(formControl)]="selectedDate" placeholder="Elige una fecha" >
+                <input matInput  [matDatepicker]="picker" [(formControl)]="selectedDate" placeholder="Elige una fecha" readonly >
                 <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                 <mat-datepicker touchUi="true" #picker> </mat-datepicker>
             </mat-form-field>
