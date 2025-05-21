@@ -28,7 +28,7 @@ export class CustomerService {
     }
   
     deleteCustomer(idCustomer : number){
-      let url = `${this.URL}/customer/`;
+      const url = `${this.URL}/customer/`;
       return this.http.delete<Customer>(url+idCustomer)
     }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Loan } from '../model/Loan';
-import { LOAN_DATA } from '../model/Mock-Loans';
 import { Pageable } from '../../core/model/Pageable';
 import { HttpClient } from '@angular/common/http';
 import { LoanPage } from 'src/app/core/model/LoanPage';
@@ -49,8 +48,8 @@ export class LoansService {
       params+= 'date='+daySelected
     }
 
-    let url = `${this.URL}/loan`
-    console.log(url+"?"+params)
+    const url = `${this.URL}/loan`
+
 
     if(params == ''){
       return url

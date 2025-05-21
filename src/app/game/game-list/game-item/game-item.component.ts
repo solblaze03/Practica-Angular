@@ -6,15 +6,13 @@ import { Game } from '../../models/Game';
   templateUrl: './game-item.component.html',
   styleUrls: ['./game-item.component.scss']
 })
-export class GameItemComponent implements OnInit {
+export class GameItemComponent{
 
 
   @Input() game: Game;
 
   constructor(){}
 
-  ngOnInit(){
-    
-  }
+  
 
 }

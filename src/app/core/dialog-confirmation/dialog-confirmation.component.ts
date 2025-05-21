@@ -4,14 +4,14 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-dialog-confirmation',
   templateUrl: './dialog-confirmation.component.html',
-  styleUrls: ['./dialog-confirmation.component.scss']
+  styleUrls: ['./dialog-confirmation.component.scss'],
 })
-export class DialogConfirmationComponent implements OnInit{
-
-  title : string;
+export class DialogConfirmationComponent implements OnInit {
+  title: string;
   description: string;
 
-  constructor(public dialogRef: MatDialogRef<DialogConfirmationComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<DialogConfirmationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -20,12 +20,11 @@ export class DialogConfirmationComponent implements OnInit{
     this.description = this.data.description;
   }
 
-  onYes(){
-    this.dialogRef.close(true)
+  onYes() {
+    this.dialogRef.close(true);
   }
 
-  
-  onNo(){
-    this.dialogRef.close(false)
+  onNo() {
+    this.dialogRef.close(false);
   }
 }

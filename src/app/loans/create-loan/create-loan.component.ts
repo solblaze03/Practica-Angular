@@ -7,7 +7,6 @@ import { Game } from 'src/app/game/models/Game';
 import { Loan } from '../model/Loan';
 import { formatDate } from '@angular/common';
 import { LoansService } from '../service/loans.service';
-import { GameService } from '../../game/game.service';
 import { isBlank } from 'src/app/game/validators/FormValidate';
 
 @Component({
@@ -36,7 +35,6 @@ export class CreateLoanComponent  implements OnInit{
 
 
   activateButton() : boolean{
-    console.log("-------> ",this.selectedLoanDate, this.selectedReturnDate, this.formLoan.valid)
     if(this.loan.fechaInicio !==  undefined && this.loan.fechaDevolucion !== undefined && this.formLoan.valid){
       return false
     }
@@ -81,7 +79,7 @@ export class CreateLoanComponent  implements OnInit{
     
   changeEvent(type: string, event : MatDatepickerInputEvent<Date>){
     this.loan.fechaDevolucion = undefined
-    console.log(event.value)
+    
     this.loan.fechaInicio = formatDate(event.value, 'YYYY-MM-dd', 'en-US' )
     this.minDate = event.value
     this.minDate.setDate(this.minDate.getDate() + 1)
@@ -89,10 +87,10 @@ export class CreateLoanComponent  implements OnInit{
     
     this.messageError =''
     this.max  = new Date(event.value)
-    this.max.setDate(event.value.getDate() + 14)
+    this.max.setDate(event.value.getDate() + 13)
   }
   changeEventReturn(type: string, event : MatDatepickerInputEvent<Date>){
-    console.log(event.value)
+   
     this.loan.fechaDevolucion = formatDate(event.value, 'YYYY-MM-dd', 'en-US')
     this.messageError = ''
   }
@@ -107,8 +105,10 @@ export class CreateLoanComponent  implements OnInit{
       },
       error: (err) => {
         if(err.status === 400){
+
           this.messageError = "Ningún campo debe estar vació."
         }else if(err.status === 409){
+
           this.messageError = "El juego esta reservado o ya ha superado el limite de prestamos"
         }
       }

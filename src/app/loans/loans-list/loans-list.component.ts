@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LOAN_DATA } from '../model/Mock-Loans';
 import { MatTableDataSource } from '@angular/material/table';
 import { Loan } from '../model/Loan';
 import { LoansService } from '../service/loans.service';
@@ -10,12 +9,10 @@ import { GameService } from 'src/app/game/game.service';
 import { CustomerService } from 'src/app/customer/customer.service';
 import { Customer } from 'src/app/customer/model/Customer';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
-import { DatePipe, formatDate } from '@angular/common';
+import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLoanComponent } from '../create-loan/create-loan.component';
 import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/dialog-confirmation.component';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-loans-list',
@@ -23,45 +20,36 @@ import { of } from 'rxjs';
   styleUrls: ['./loans-list.component.scss'],
 })
 export class LoansListComponent implements OnInit {
-
   constructor(
     private loansService: LoansService,
     private gameService: GameService,
     private customerService: CustomerService,
-    public dialog : MatDialog,
-    private paginator : MatPaginatorIntl,
-    private formBuilder : FormBuilder
-  ) {
-
-    formBuilder.group({
-
-    })
-  }
-
+    public dialog: MatDialog,
+    private paginator: MatPaginatorIntl,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
+    this.paginator.itemsPerPageLabel = 'Prestamos por pagina';
 
-    this.paginator.itemsPerPageLabel = "Prestamos por pagina"
-    
-    this.paginator.itemsPerPageLabel = "Autores por pagina"
-    this.paginator.previousPageLabel = "Pagina anterior"
-    this.paginator.nextPageLabel = "Siguiente pagina"
-    this.paginator.firstPageLabel = "Primera pagina"
-    this.paginator.lastPageLabel = "Ultima pagina"
+    this.paginator.itemsPerPageLabel = 'Autores por pagina';
+    this.paginator.previousPageLabel = 'Pagina anterior';
+    this.paginator.nextPageLabel = 'Siguiente pagina';
+    this.paginator.firstPageLabel = 'Primera pagina';
+    this.paginator.lastPageLabel = 'Ultima pagina';
 
-    this.paginator.getRangeLabel =  (page: number, pageSize: number, length: number): string => {
-
-      if(length == 0){
-        return "Pagina 1 de 1"
+    this.paginator.getRangeLabel = (
+      page: number,
+      pageSize: number,
+      length: number
+    ): string => {
+      if (length == 0) {
+        return 'Pagina 1 de 1';
       }
 
-      const amountPages = Math.ceil(length / pageSize)
-      return `Pagina ${page+ 1} de ${amountPages}`
-    }
-
-  
-    
-
+      const amountPages = Math.ceil(length / pageSize);
+      return `Pagina ${page + 1} de ${amountPages}`;
+    };
 
     this.LoadPage();
 
@@ -73,15 +61,12 @@ export class LoansListComponent implements OnInit {
       this.customers = e;
     });
 
-    this.filterGame = null
-    this.filterCustomer = null
-    
+    this.filterGame = null;
+    this.filterCustomer = null;
   }
 
- 
-
   selectedDate = new FormControl();
-  
+
   filterGame: Game;
   filterCustomer: Customer;
   games: Game[];
@@ -94,48 +79,39 @@ export class LoansListComponent implements OnInit {
     'nameCustomer',
     'dateLoan',
     'loanRepayment',
-    'action'
+    'action',
   ];
 
   pageNumber: number = 0;
   pageSize: number = 5;
   totalElements: number = 0;
 
-  clearFilter(){
-    this.filterGame = null
-    this.filterCustomer = null
-    this.selectedDate = new FormControl()
-    this.LoadPage()
+  clearFilter() {
+    this.filterGame = null;
+    this.filterCustomer = null;
+    this.selectedDate = new FormControl();
+    this.LoadPage();
   }
 
   LoadPage(event?: PageEvent) {
-    let date : Date = this.selectedDate.value
-    let daySelected = null
-    if(date != undefined){
-    
-
-    
-      daySelected = formatDate(date, 'YYYY-MM-dd', 'en-US' )
-      console.log(daySelected)
-
+    const date: Date = this.selectedDate.value;
+    let daySelected = null;
+    if (date != undefined) {
+      daySelected = formatDate(date, 'YYYY-MM-dd', 'en-US');
     }
     this.pageNumber = 0;
-    this.totalElements = 0
+    this.totalElements = 0;
 
-    let titleGame : number =null
-    let customerName : number = null
-    
-    if(this.filterGame != null){
-      titleGame = this.filterGame.id
-      
+    let titleGame: number = null;
+    let customerName: number = null;
+
+    if (this.filterGame != null) {
+      titleGame = this.filterGame.id;
     }
 
-    
-
-    if (this.filterCustomer != null){
-      customerName = this.filterCustomer.id
+    if (this.filterCustomer != null) {
+      customerName = this.filterCustomer.id;
     }
-    
 
     let pageable: Pageable = {
       pageNumber: this.pageNumber,
@@ -148,48 +124,46 @@ export class LoansListComponent implements OnInit {
       ],
     };
 
-   
     if (event != null) {
       pageable.pageSize = event.pageSize;
       pageable.pageNumber = event.pageIndex;
     }
 
-    this.loansService.getLoans(pageable, titleGame, customerName,daySelected).subscribe((loan) => {
-      this.dataSource.data = loan.content;
-      this.pageNumber = loan.pageable.pageNumber;
-      this.pageSize = loan.pageable.pageSize;
-      this.totalElements = loan.totalElements;
-    });
+    this.loansService
+      .getLoans(pageable, titleGame, customerName, daySelected)
+      .subscribe((loan) => {
+        this.dataSource.data = loan.content;
+        this.pageNumber = loan.pageable.pageNumber;
+        this.pageSize = loan.pageable.pageSize;
+        this.totalElements = loan.totalElements;
+      });
   }
 
   createLoan() {
-
-
-
     const dialogRef = this.dialog.open(CreateLoanComponent, {
-      data: { game: this.games , customer: this.customers}
-    })
+      data: { game: this.games, customer: this.customers },
+    });
 
-    dialogRef.afterClosed().subscribe( result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.ngOnInit();
-    })
-
+    });
   }
 
-  delete(loan :Loan){
-    const dialogRef = this.dialog.open(DialogConfirmationComponent , {
-          data: { title: 'Eliminar préstamo' , description: 'Atención si borra el préstamo perderá sus datos.<br> ¿Desea eliminar la prestamo?' }
+  delete(loan: Loan) {
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+      data: {
+        title: 'Eliminar préstamo',
+        description:
+          'Atención si borra el préstamo perderá sus datos.<br> ¿Desea eliminar la prestamo?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loansService.delete(loan.id).subscribe((result) => {
+          this.ngOnInit();
         });
-    
-        dialogRef.afterClosed().subscribe(
-          result => {
-            if(result) {
-              this.loansService.delete(loan.id).subscribe(result => {
-                this.ngOnInit();
-              })
-            }
-          }
-        )
+      }
+    });
   }
-
 }

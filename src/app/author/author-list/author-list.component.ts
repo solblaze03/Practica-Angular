@@ -6,7 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Pageable } from '../../core/model/Pageable';
 import { AuthorEditComponent } from '../author-edit/author-edit.component';
-import { Dialog } from '@angular/cdk/dialog';
 import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/dialog-confirmation.component';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 
@@ -21,27 +20,33 @@ export class AuthorListComponent implements OnInit {
   totalElements: number = 0;
 
   dataSource = new MatTableDataSource<Author>();
-  displayedColumns: string[] = ['id','name' ,'nationality', 'action'];
+  displayedColumns: string[] = ['id', 'name', 'nationality', 'action'];
 
-  constructor(private authorService: AuthorService, public dialog: MatDialog, private paginator: MatPaginatorIntl ) {}
+  constructor(
+    private authorService: AuthorService,
+    public dialog: MatDialog,
+    private paginator: MatPaginatorIntl
+  ) {}
   ngOnInit(): void {
     this.loadPage();
-    this.paginator.itemsPerPageLabel = "Autores por pagina"
-    this.paginator.previousPageLabel = "Pagina anterior"
-    this.paginator.nextPageLabel = "Siguiente pagina"
-    this.paginator.firstPageLabel = "Primera pagina"
-    this.paginator.lastPageLabel = "Ultima pagina"
+    this.paginator.itemsPerPageLabel = 'Autores por pagina';
+    this.paginator.previousPageLabel = 'Pagina anterior';
+    this.paginator.nextPageLabel = 'Siguiente pagina';
+    this.paginator.firstPageLabel = 'Primera pagina';
+    this.paginator.lastPageLabel = 'Ultima pagina';
 
-    this.paginator.getRangeLabel =  (page: number, pageSize: number, length: number): string => {
-
-      if(length == 0){
-        return "Pagina 1 de 1"
+    this.paginator.getRangeLabel = (
+      page: number,
+      pageSize: number,
+      length: number
+    ): string => {
+      if (length == 0) {
+        return 'Pagina 1 de 1';
       }
 
-      const amountPages = Math.ceil(length / pageSize)
-      return `Pagina ${page+ 1} de ${amountPages}`
-    }
-  
+      const amountPages = Math.ceil(length / pageSize);
+      return `Pagina ${page + 1} de ${amountPages}`;
+    };
   }
 
   loadPage(event?: PageEvent) {
@@ -59,10 +64,9 @@ export class AuthorListComponent implements OnInit {
     if (event != null) {
       pageable.pageSize = event.pageSize;
       pageable.pageNumber = event.pageIndex;
-      
     }
 
-    this.authorService.getAuthors(pageable).subscribe(data => {
+    this.authorService.getAuthors(pageable).subscribe((data) => {
       this.dataSource.data = data.content;
       this.pageNumber = data.pageable.pageNumber;
       this.pageSize = data.pageable.pageSize;
@@ -79,31 +83,31 @@ export class AuthorListComponent implements OnInit {
     });
   }
 
-  editAuthor(author: Author){
+  editAuthor(author: Author) {
     const dialogRef = this.dialog.open(AuthorEditComponent, {
-      data: {author: author}
-    })
+      data: { author: author },
+    });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.ngOnInit();
-    })
+    });
   }
 
-  deleteAuthor(author: Author){
+  deleteAuthor(author: Author) {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {
-      data: {title: "Eliminar autor", description: 'Atención si borra el autor se perderán sus datos.<br> ¿Desea eliminar el autor?'}
-    })
+      data: {
+        title: 'Eliminar autor',
+        description:
+          'Atención si borra el autor se perderán sus datos.<br> ¿Desea eliminar el autor?',
+      },
+    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.authorService.deleteAuthor(author.id).subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.authorService.deleteAuthor(author.id).subscribe((result) => {
           this.ngOnInit();
-        })
+        });
       }
-    })
-
-
+    });
   }
-
-
 }

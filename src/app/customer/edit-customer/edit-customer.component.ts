@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Customer } from '../model/Customer';
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { isBlank } from 'src/app/game/validators/FormValidate';
 
@@ -16,22 +15,18 @@ export class EditCustomerComponent implements OnInit {
     private customerService: CustomerService,
     public dialogRef: MatDialogRef<EditCustomerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder : FormBuilder
+    private formBuilder: FormBuilder
   ) {
-
-    this.formCustomer = formBuilder.group(
-      {
-        id: [''],
-        nombre: ['', [Validators.required,isBlank]]
-      }
-    )
-
+    this.formCustomer = formBuilder.group({
+      id: [''],
+      nombre: ['', [Validators.required, isBlank]],
+    });
   }
 
-  formCustomer: FormGroup
+  formCustomer: FormGroup;
   customer: Customer;
 
-  codeError = ''
+  codeError = '';
 
   ngOnInit(): void {
     if (this.data.client != null) {
@@ -51,11 +46,10 @@ export class EditCustomerComponent implements OnInit {
         this.dialogRef.close();
       },
       error: (err) => {
-        if(err.status === 400){
-          this.codeError = "Ya existe un cliente con ese nombre"
+        if (err.status === 400) {
+          this.codeError = 'Ya existe un cliente con ese nombre';
         }
       },
     });
-    
   }
 }

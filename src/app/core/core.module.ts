@@ -4,16 +4,13 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { CategoryListComponent } from '../category/category-list/category-list.component';
 import { DialogConfirmationComponent } from './dialog-confirmation/dialog-confirmation.component';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
-
-
 @NgModule({
   declarations: [
-    HeaderComponent,
+    HeaderComponent, 
     DialogConfirmationComponent
   ],
   imports: [
@@ -22,16 +19,14 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatToolbarModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
   ],
-  exports: [
-    HeaderComponent
-  ],
+  exports: [HeaderComponent],
   providers: [
-   {
-    provide: MAT_DIALOG_DATA,
-    useValue: {}
-   }
-  ]
+    {
+      provide: MAT_DIALOG_DATA,
+      useValue: {},
+    },
+  ],
 })
-export class CoreModule { }
+export class CoreModule {}

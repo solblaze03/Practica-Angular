@@ -19,7 +19,7 @@ export class GameEditComponent implements OnInit {
   authors: Author[];
   categories: Category[];
 
-  form: FormGroup
+  form: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<GameEditComponent>,
@@ -27,36 +27,24 @@ export class GameEditComponent implements OnInit {
     private gameService: GameService,
     private categoryService: CategoryService,
     private authorService: AuthorService,
-    private fb : FormBuilder
+    private fb: FormBuilder
   ) {
-
-        this.form = this.fb.group({
-            titleGame: [ '', [Validators.required , isBlank]],
-            age: ['', [Validators.required]],
-            category: [ '' , [Validators.required]],
-            game: [ '' , [Validators.required]]
-        })
-
+    this.form = this.fb.group({
+      titleGame: ['', [Validators.required, isBlank]],
+      age: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      game: ['', [Validators.required]],
+    });
   }
 
-
-   formValid() : Boolean{
-    
-        return this.form.valid
-    }
-
-
+  formValid(): Boolean {
+    return this.form.valid;
+  }
 
   isButtonActive = false;
-  categorySelected : Category
-
+  categorySelected: Category;
 
   ngOnInit(): void {
-
-    
-        
-    
-
     if (this.data.game != null) {
       this.game = Object.assign({}, this.data.game);
     } else {
@@ -67,27 +55,20 @@ export class GameEditComponent implements OnInit {
       this.categories = categories;
 
       if (this.game.category != null) {
-        let categoryFilter: Category[] = categories.filter(
+        const categoryFilter: Category[] = categories.filter(
           (category) => category.id == this.data.game.category.id
         );
         if (categoryFilter != null) {
           this.game.category = categoryFilter[0];
         }
       }
-
-
-      this.form.valueChanges.subscribe( () => {
-        
-      }
-      )
-
     });
 
     this.authorService.getAllAuthors().subscribe((authors) => {
       this.authors = authors;
 
       if (this.game.author != null) {
-        let authorFilter: Author[] = authors.filter(
+        const authorFilter: Author[] = authors.filter(
           (author) => author.id == this.data.game.author.id
         );
         if (authorFilter != null) {
@@ -97,19 +78,12 @@ export class GameEditComponent implements OnInit {
     });
   }
 
-
-  
-
-  isValidateAge(age: number) : boolean{
-    
-    if(age == undefined){
-        return false;
+  isValidateAge(age: number): boolean {
+    if (age == undefined) {
+      return false;
     }
 
-
-
-    return true
-    
+    return true;
   }
 
   onSave() {

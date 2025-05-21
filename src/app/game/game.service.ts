@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { GAME_DATA } from './models/mock-games';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { Game } from './models/Game';
@@ -44,7 +43,7 @@ export class GameService {
       params += "idCategory="+categoryId
     }
 
-    let url = `${this.URL}/game`
+    const url = `${this.URL}/game`
     if(params == ''){
       return url
     }else{
