@@ -15,10 +15,10 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
   styleUrls: ['./author-list.component.scss'],
 })
 export class AuthorListComponent implements OnInit {
+  
   pageNumber: number = 0;
   pageSize: number = 5;
   totalElements: number = 0;
-
   dataSource = new MatTableDataSource<Author>();
   displayedColumns: string[] = ['id', 'name', 'nationality', 'action'];
 
@@ -27,6 +27,7 @@ export class AuthorListComponent implements OnInit {
     public dialog: MatDialog,
     private paginator: MatPaginatorIntl
   ) {}
+
   ngOnInit(): void {
     this.loadPage();
     this.paginator.itemsPerPageLabel = 'Autores por pagina';

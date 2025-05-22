@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog-confirmation.component.scss'],
 })
 export class DialogConfirmationComponent implements OnInit {
+  
   title: string;
   description: string;
 

@@ -12,13 +12,15 @@ import { Customer } from 'src/app/customer/model/Customer';
   styleUrls: ['./customer-list.component.scss'],
 })
 export class CustomerListComponent implements OnInit {
+
+  datasource = new MatTableDataSource<Customer>();
+  displayedColumns: String[] = ['id', 'name', 'action'];
+  
   constructor(
     private customerService: CustomerService,
     public dialog: MatDialog
   ) {}
 
-  datasource = new MatTableDataSource<Customer>();
-  displayedColumns: String[] = ['id', 'name', 'action'];
 
   ngOnInit(): void {
     this.customerService.getCustomer().subscribe((client) => {

@@ -14,6 +14,7 @@ import { isBlank } from 'src/app/game/validators/FormValidate';
   styleUrls: ['./category-edit.component.scss'],
 })
 export class CategoryEditComponent implements OnInit {
+  
   formCategory: FormGroup;
   category: Category;
 
@@ -28,6 +29,7 @@ export class CategoryEditComponent implements OnInit {
       category: ['category', [Validators.required, isBlank]],
     });
   }
+
   ngOnInit(): void {
     if (this.data.category != null) {
       this.category = Object.assign({}, this.data.category);

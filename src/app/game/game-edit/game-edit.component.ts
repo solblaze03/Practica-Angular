@@ -18,7 +18,8 @@ export class GameEditComponent implements OnInit {
   game: Game;
   authors: Author[];
   categories: Category[];
-
+  isButtonActive = false;
+  categorySelected: Category;
   form: FormGroup;
 
   constructor(
@@ -41,8 +42,7 @@ export class GameEditComponent implements OnInit {
     return this.form.valid;
   }
 
-  isButtonActive = false;
-  categorySelected: Category;
+
 
   ngOnInit(): void {
     if (this.data.game != null) {

@@ -20,6 +20,29 @@ import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/di
   styleUrls: ['./loans-list.component.scss'],
 })
 export class LoansListComponent implements OnInit {
+
+  selectedDate = new FormControl();
+
+  filterGame: Game;
+  filterCustomer: Customer;
+  games: Game[];
+  customers: Customer[];
+
+  dataSource = new MatTableDataSource<Loan>();
+  displayedColumns: String[] = [
+    'id',
+    'nameGame',
+    'nameCustomer',
+    'dateLoan',
+    'loanRepayment',
+    'action',
+  ];
+
+  pageNumber: number = 0;
+  pageSize: number = 5;
+  totalElements: number = 0;
+
+
   constructor(
     private loansService: LoansService,
     private gameService: GameService,
@@ -51,7 +74,7 @@ export class LoansListComponent implements OnInit {
       return `Pagina ${page + 1} de ${amountPages}`;
     };
 
-    this.LoadPage();
+    this.loadPage();
 
     this.gameService.getGames().subscribe((e) => {
       this.games = e;
@@ -65,35 +88,15 @@ export class LoansListComponent implements OnInit {
     this.filterCustomer = null;
   }
 
-  selectedDate = new FormControl();
-
-  filterGame: Game;
-  filterCustomer: Customer;
-  games: Game[];
-  customers: Customer[];
-
-  dataSource = new MatTableDataSource<Loan>();
-  displayedColumns: String[] = [
-    'id',
-    'nameGame',
-    'nameCustomer',
-    'dateLoan',
-    'loanRepayment',
-    'action',
-  ];
-
-  pageNumber: number = 0;
-  pageSize: number = 5;
-  totalElements: number = 0;
 
   clearFilter() {
     this.filterGame = null;
     this.filterCustomer = null;
     this.selectedDate = new FormControl();
-    this.LoadPage();
+    this.loadPage();
   }
 
-  LoadPage(event?: PageEvent) {
+  loadPage(event?: PageEvent) {
     const date: Date = this.selectedDate.value;
     let daySelected = null;
     if (date != undefined) {

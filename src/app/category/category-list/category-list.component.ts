@@ -12,6 +12,10 @@ import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/di
   styleUrls: ['./category-list.component.scss'],
 })
 export class CategoryListComponent implements OnInit {
+
+  dataSource = new MatTableDataSource<Category>();
+  displayedColumns: String[] = ['id', 'name', 'action'];
+
   constructor(
     private categoryService: CategoryService,
     public dialog: MatDialog
@@ -22,9 +26,6 @@ export class CategoryListComponent implements OnInit {
       .getCategories()
       .subscribe((categories) => (this.dataSource.data = categories));
   }
-
-  dataSource = new MatTableDataSource<Category>();
-  displayedColumns: String[] = ['id', 'name', 'action'];
 
   createCategory() {
     const dialogRef = this.dialog.open(CategoryEditComponent, {

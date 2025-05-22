@@ -26,6 +26,7 @@ export class AuthorEditComponent implements OnInit {
       nacionalidad: ['', [Validators.required, isBlank]],
     });
   }
+  
   ngOnInit(): void {
     if (this.data.author != null) {
       this.author = Object.assign({}, this.data.author);

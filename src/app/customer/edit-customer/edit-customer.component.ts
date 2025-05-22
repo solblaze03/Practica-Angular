@@ -11,6 +11,11 @@ import { isBlank } from 'src/app/game/validators/FormValidate';
   styleUrls: ['./edit-customer.component.scss'],
 })
 export class EditCustomerComponent implements OnInit {
+
+  formCustomer: FormGroup;
+  customer: Customer;
+  codeError = '';
+
   constructor(
     private customerService: CustomerService,
     public dialogRef: MatDialogRef<EditCustomerComponent>,
@@ -23,10 +28,6 @@ export class EditCustomerComponent implements OnInit {
     });
   }
 
-  formCustomer: FormGroup;
-  customer: Customer;
-
-  codeError = '';
 
   ngOnInit(): void {
     if (this.data.client != null) {

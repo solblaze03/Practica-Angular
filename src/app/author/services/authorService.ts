@@ -10,10 +10,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthorService {
+
+ private readonly URL = environment.api;
+
   constructor(private HttpClient: HttpClient) {}
 
-  private readonly URL = environment.api;
-
+ 
   getAuthors(pageable: Pageable): Observable<AuthorPage> {
     return this.HttpClient.post<AuthorPage>(`${this.URL}/author`, {
       pageable: pageable,
